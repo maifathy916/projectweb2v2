@@ -1,0 +1,305 @@
+<!Doctype html>
+<html>
+ <head>
+  <title>Learn the English Letters</title>
+   <style>
+   div button
+   {
+padding: 6px 12px;
+margin-bottom: 10;
+font-size: 20px;
+line-height: 1.42857143;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+cursor: pointer;
+border: 1px solid transparent;
+display:inline-block;
+background:lightblue;
+border-radius:6px;
+ border-color:#333;
+   }
+   div button:hover
+   { 
+   color:white;
+   background-color:#555;
+   }
+   input[type="number"]
+   {
+   width:50px;
+   height:30px;
+   }
+   #label
+   {
+   font-size: 22px;
+   color:orange;
+   }
+   #header{
+    font-size:40px;
+   color:maroon;
+   }
+ #body
+   { 
+   <!--background-image:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('Images/bodyCover.jpg');-->
+   background-repeat:no-repeat;
+   background-position:center;
+   background-size:cover;
+   background-attachment:fixed;
+   background-color:white;
+   padding-left:30px;
+   height:350px;
+   
+   }
+table {
+  border-collapse: collapse;
+  width: 100%;
+      }
+
+th{
+  text-align: left;
+  padding: 8px;
+  }
+
+tr:nth-child(even) {background-color: #f2f2f2;} 
+#result,#res
+{
+text-shadow: 1px 0.5px red;
+font-size:30px;
+}
+   </style>
+  
+ </head>
+ <body id="body">
+  <div id="page">
+    <h1 id="header">Learn the English Letters</h1>
+    <label id="label">Number of Letters:</label>
+     <input type = "number" id = "number" min="1" max="26"/>
+     <button id = "ok" type = "button" >Generate</button>
+	 <div id = "letters" hidden="true"> </div>
+     <div id="images" hidden="true">
+    <image src="" id="img">
+    </div>
+	
+	<div id="res"></div>
+
+	<div><button id = "show" type = "button">show_Result</button></div>
+
+
+   </div>
+  </body>
+ <script src="jquery-3.4.1.js"></script> 
+<script>
+    var generate,randomNumber,serialNumber,i,getarr=new Array(),randomSerial,listOfbutton,val,countgenerate=0,countletter=0,max=26,min=1;
+  	      
+            generate= document.getElementById("ok"); 
+			serialNumber=document.getElementById("number"); 
+			
+            images= document.getElementById("images");	 			
+	  getarr=["x","c","v","b","n","m","q","i","y","t","e","w","o","p","f","d","s","a","g","z","l","x","c","h","j","k"];
+	 
+                 
+                        
+                              
+								
+								
+                         generate.addEventListener("click", function(e)
+	                    {        
+						if(max<=serialNumber.value)
+				       {
+				   serialNumber.value=max;
+				   //console.log( serialNumber.value);
+				   }
+                 else if(min>=serialNumber.value)
+				  {
+                 serialNumber.value=min;
+				 
+				   //console.log( serialNumber.value);
+				   }
+ 
+			               document.getElementById("letters").innerHTML='';
+						 
+		                        for( i=0;i<serialNumber.value;i++)
+		                            { 
+		 
+		                           randomNumber=Math.floor(Math.random()*(getarr.length));
+					                   randomSerial = getarr[randomNumber];
+		                           listOfbutton=document.createElement("button");
+                                        val=document.createTextNode(getarr[i]);
+                                         listOfbutton.appendChild(val);
+					       document.getElementById("letters").appendChild(listOfbutton).innerHTML=randomSerial;
+						          document.getElementById("letters").removeAttribute("hidden"); 
+								  		
+						 
+								    
+							document.getElementById("letters").appendChild(listOfbutton).addEventListener("click", function(e)
+	                         {
+					          document.getElementById("img").src ="Images/"+e.target.textContent+".jpg";
+							
+					              document.getElementById("img").style.width ='250px';
+					 	          document.getElementById("img").style.height ='240px'; 
+						          document.getElementById("images").removeAttribute("hidden");
+								  	
+									 Templetter(e);
+								  
+								  
+								});
+									
+								 
+							  
+							   }
+							   
+								Tempgen(e);
+			 		
+			
+                                 
+				});
+								 
+						 window.addEventListener("load",function(e){
+	   alert("Welcome To Learning English Letters");
+	  Tempload(e);
+	   });
+	   
+	   window.addEventListener("unload",function(e){
+	    alert("Bye!!");
+	      Tempunload(e);
+		  });		 
+				  
+				  function Tempload(e){
+		
+			   if(localStorage.getItem("load")){
+			  var arr2=JSON.parse(localStorage.getItem("load"));
+			   arr2.push({"typeofevent":e.type,"targetofevent":e.target,"dateofevent": Date()});
+	        localStorage.setItem("load",JSON.stringify(arr2));
+			
+			}
+			else {
+			 var  arr=[{"typeofevent":e.type,"targetofeventis":e.target,"dateofevent":Date()}];
+	        localStorage.setItem("load",JSON.stringify(arr));
+			}
+
+		}
+			
+			
+			
+	 function Tempunload(e){
+				   	 
+				
+			   if(localStorage.getItem("unload")){
+			  var arr2=JSON.parse(localStorage.getItem("unload"));
+			   arr2.push({"typeofeventis":e.type,"targetofeventis":e.target,"dateofeventis":Date()});
+	        localStorage.setItem("unload",JSON.stringify(arr2));
+			
+			}
+			else {
+			
+			  var arr=[{"typeofeventis":e.type,"targetofeventis":e.target,"dateofeventis":Date()}];
+	        localStorage.setItem("unload",JSON.stringify(arr));
+			}
+     }
+			
+			
+			
+	 function Tempgen(e){
+			   if(localStorage.getItem("btngen"))
+			   {
+			   var arr2=JSON.parse(localStorage.getItem("btngen"));
+			   arr2.push({"typeofevent":e.type,"targetofevent":e.target.textContent,"dateofevent":Date()});
+	           localStorage.setItem("btngen",JSON.stringify(arr2));
+
+			}
+			else 
+			{
+			  var arr=[{"typeofevent":e.type,"targetofevent":e.target.textContent,"dateofevent": Date()}];
+	        localStorage.setItem("btngen",JSON.stringify(arr));
+			}
+			}
+			
+
+	function Templetter(e){
+			   if(localStorage.getItem("btnletter")){
+			  var arr2=JSON.parse(localStorage.getItem("btnletter"));
+			   arr2.push({"typeofevent":e.type,"targetofevent":e.target.textContent,"dateofevent": Date()});
+	        localStorage.setItem("btnletter",JSON.stringify(arr2));
+			
+			}
+			else {
+			  var arr=[{"typeofevent":e.type,"targetofevent":e.target.textContent,"dateofevent":Date()}];
+	        localStorage.setItem("btnletter",JSON.stringify(arr));
+			}
+	}
+
+                               
+										 	 
+										
+											 
+									     		 
+									     
+									window.setInterval(function (e)
+    	                                        {
+								  for(var r=0;r<localStorage.length;r++)
+									{
+								
+												$.ajax({   
+                                     "type": "POST",
+                                     "url": "ajax.php",
+                                     "data":{"OBJECT":localStorage.getItem(localStorage.key(r))},
+                                     "success": 
+										  function(response)
+									      {
+										  
+												 
+										 // console.log(response);
+											    
+												}	
+												 });
+												 }	
+												//$("#result").html(response);
+											    localStorage.clear(); 
+                                                 },5000 );
+												 
+														
+											
+									  $.ajax({
+                                     "type": "GET",
+                                     "url": "ajax.php",
+                                     "data": {"OBJECT":""},
+                                     "success": 
+									 function(response)
+									 {
+										$("#show").on("click", function()
+										{
+                                               if(response)
+                                                   {
+    	                                 
+                                       var r = JSON.parse(response);
+                                       var sh = "<table><tr><td>Type</td><td>Target</td><td>Time</td></tr>";
+                                       for (var i = 0; i < r.length; i++)
+									   {
+                                         
+                                           sh += "<tr><td>" + r[i]['type'] + "</td><td>" + r[i]['target'] + "</td><td>" + r[i]['date'] + "</td></tr>";
+                                                 }
+                                         document.getElementById("res").innerHTML = (sh + "</table>");
+                                               
+                    }
+                } 
+								 );
+										      
+												  }});	 
+												   
+									
+									
+							
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+	 </script>
+</html>
